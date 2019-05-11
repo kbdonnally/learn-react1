@@ -4,12 +4,13 @@
   "description": "Sources:",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "babel src -d lib"
   },
   "author": "kbdonnally <kbd3ax@virginia.edu>",
   "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.4.4"
+    "@babel/core": "^7.4.4",
+    "@babel/preset-react": "^7.0.0"
   }
 }
