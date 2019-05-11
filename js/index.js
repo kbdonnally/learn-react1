@@ -1,28 +1,36 @@
 // 1. Square on board
 class Square extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: null
-    };
-  }
-
   render() {
     return React.createElement("button", {
       className: "square",
-      onClick: () => this.setState({
-        value: 'X'
-      })
-    }, this.state.value);
+      onClick: () => this.props.onClick()
+    }, this.props.value);
   }
 
 } // 2. Game board
 
 
 class Board extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      squares: Array(9).fill(null)
+    };
+  }
+
   renderSquare(i) {
     return React.createElement(Square, {
-      value: i
+      value: this.state.squares[i],
+      onClick: () => this.handleClick(i)
+    });
+  }
+
+  handleClick(i) {
+    const squares = { ...this.state.squares
+    };
+    squares[i] = 'X';
+    this.setState({
+      squares: squares
     });
   }
 
