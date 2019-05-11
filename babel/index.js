@@ -1,16 +1,28 @@
+// 1. Square on board
 class Square extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: null,
+    };
+  }
+
   render() {
     return (
-      <button className="square">
-        {/* TODO */}
+      <button
+       className="square"
+       onClick={() => this.setState({value: 'X'})}
+      >
+        {this.state.value}
       </button>
     );
   }
 }
 
+// 2. Game board
 class Board extends React.Component {
   renderSquare(i) {
-    return <Square />;
+    return <Square value={i} />;
   }
 
   render() {
@@ -39,6 +51,7 @@ class Board extends React.Component {
   }
 }
 
+// 3. Game wrapper
 class Game extends React.Component {
   render() {
     return (
