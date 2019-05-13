@@ -1,12 +1,9 @@
 // 1. Square on board
-class Square extends React.Component {
-  render() {
-    return React.createElement("button", {
-      className: "square",
-      onClick: () => this.props.onClick()
-    }, this.props.value);
-  }
-
+function Square(props) {
+  return React.createElement("button", {
+    className: "square",
+    onClick: props.onClick
+  }, props.value);
 } // 2. Game board
 
 
