@@ -13,6 +13,7 @@ class Board extends React.Component {
 		super(props);
 		this.state = {
 			squares: Array(9).fill(null),
+			xIsNext: true,
 		};
 	}
 	
@@ -26,13 +27,23 @@ class Board extends React.Component {
 	}
 
 	handleClick(i) {
-		const squares = {...this.state.squares};
-		squares[i] = 'X';
-		this.setState({squares: squares});
+		const squares = [...this.state.squares]; // spread syntax
+		squares[i] = this.state.xIsNext ? 'X' : 'O'; // ternary operator
+		this.setState({
+			squares: squares,
+			xIsNext: !this.state.xIsNext,
+		});
 	}
 
 	render() {
-		const status = 'Next player: X';
+		const winner = calculateWinner(this.state.squares);
+		let status;
+		if (winner) {
+			status = `Winner: ${winner}`;
+		} else {
+			// if xIsNext true, pick it, else pick O
+			status = `Next player: ${this.state.xIsNext ? 'X' : 'O'}`;
+		}
 
 		return (
 			<div>
