@@ -28,6 +28,9 @@ class Board extends React.Component {
 
 	handleClick(i) {
 		const squares = [...this.state.squares]; // spread syntax
+		if (calculateWinner(squares) || squares[i]) {
+			return; // return early if they don't return null
+		}
 		squares[i] = this.state.xIsNext ? 'X' : 'O'; // ternary operator
 		this.setState({
 			squares: squares,
