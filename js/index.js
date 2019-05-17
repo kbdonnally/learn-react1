@@ -8,50 +8,15 @@ function Square(props) {
 
 
 class Board extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      squares: Array(9).fill(null),
-      xIsNext: true
-    };
-  }
-
   renderSquare(i) {
     return React.createElement(Square, {
-      value: this.state.squares[i],
-      onClick: () => this.handleClick(i)
-    });
-  }
-
-  handleClick(i) {
-    const squares = [...this.state.squares]; // spread syntax
-
-    if (calculateWinner(squares) || squares[i]) {
-      return; // return early if they don't return null
-    }
-
-    squares[i] = this.state.xIsNext ? 'X' : 'O'; // ternary operator
-
-    this.setState({
-      squares: squares,
-      xIsNext: !this.state.xIsNext
+      value: this.props.squares[i],
+      onClick: () => this.props.onClick(i)
     });
   }
 
   render() {
-    const winner = calculateWinner(this.state.squares);
-    let status;
-
-    if (winner) {
-      status = `Winner: ${winner}`;
-    } else {
-      // if xIsNext true, pick it, else pick O
-      status = `Next player: ${this.state.xIsNext ? 'X' : 'O'}`;
-    }
-
     return React.createElement("div", null, React.createElement("div", {
-      className: "status"
-    }, status), React.createElement("div", {
       className: "board-row"
     }, this.renderSquare(0), this.renderSquare(1), this.renderSquare(2)), React.createElement("div", {
       className: "board-row"
@@ -64,14 +29,64 @@ class Board extends React.Component {
 
 
 class Game extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      history: [{
+        squares: Array(9).fill(null)
+      }],
+      xIsNext: true
+    };
+  } // what to do if click a square
+
+
+  handleClick(i) {
+    const history = this.state.history;
+    const current = history[history.length - 1];
+    const squares = [...current.squares];
+
+    if (calculateWinner(squares) || squares[i]) {
+      return; // return early if they don't return null
+    }
+
+    squares[i] = this.state.xIsNext ? 'X' : 'O'; // if null, assign X or O
+    // update history & whose turn it is
+
+    this.setState({
+      history: history.concat([{
+        squares: squares
+      }]),
+      xIsNext: !this.state.xIsNext
+    });
+  } // render game
+
+
   render() {
+    const history = this.state.history; // entire array of history states
+
+    const current = history[history.length - 1]; // current game state
+
+    const winner = calculateWinner(current.squares); // see fxn at bottom
+
+    let status; // whose turn it is or who won
+    // determine status
+
+    if (winner) {
+      status = `Winner: ${winner}`;
+    } else {
+      status = `Next player: ${this.state.xIsNext ? 'X' : 'O'}`;
+    }
+
     return React.createElement("div", {
       className: "game"
     }, React.createElement("div", {
       className: "game-board"
-    }, React.createElement(Board, null)), React.createElement("div", {
+    }, React.createElement(Board, {
+      squares: current.squares,
+      onClick: i => this.handleClick(i)
+    })), React.createElement("div", {
       className: "game-info"
-    }, React.createElement("div", null), React.createElement("ol", null)));
+    }, React.createElement("div", null, status), React.createElement("ol", null)));
   }
 
 } // ========================================
