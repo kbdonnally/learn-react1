@@ -1,7 +1,10 @@
 // 1. Square on board
 function Square(props) {
 	return (
-		<button className="square" onClick={props.onClick}>
+		<button 
+			className="square"
+			onClick={props.onClick}
+		>
 			{props.value}
 		</button>
 	);
@@ -9,7 +12,6 @@ function Square(props) {
 
 // 2. Game board
 class Board extends React.Component {
-	
 	renderSquare(i) {
 		return (
 			<Square 
@@ -56,9 +58,9 @@ class Game extends React.Component {
 
 	// what to do if click a square
 	handleClick(i) {
-		const history = this.state.history;
-		const current = history[history.length - 1];
-		const squares = [...current.squares];
+		const history = this.state.history; // entire array of history states
+		const current = history[history.length - 1]; // current game state
+		const squares = [...current.squares]; // array of length 9
 
 		if (calculateWinner(squares) || squares[i]) {
 			return; // return early if they don't return null
@@ -76,8 +78,8 @@ class Game extends React.Component {
 
 	// render game
 	render() {
-		const history = this.state.history; // entire array of history states
-		const current = history[history.length - 1]; // current game state
+		const history = this.state.history; 
+		const current = history[history.length - 1]; 
 		const winner = calculateWinner(current.squares); // see fxn at bottom
 		let status; // whose turn it is or who won
 
@@ -87,7 +89,8 @@ class Game extends React.Component {
 		} else {
 			status = `Next player: ${this.state.xIsNext ? 'X' : 'O'}`;
 		}
-		
+
+		// what to show
 		return (
 			<div className="game">
 				<div className="game-board">

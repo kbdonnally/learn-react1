@@ -41,9 +41,11 @@ class Game extends React.Component {
 
 
   handleClick(i) {
-    const history = this.state.history;
-    const current = history[history.length - 1];
-    const squares = [...current.squares];
+    const history = this.state.history; // entire array of history states
+
+    const current = history[history.length - 1]; // current game state
+
+    const squares = [...current.squares]; // array of length 9
 
     if (calculateWinner(squares) || squares[i]) {
       return; // return early if they don't return null
@@ -62,10 +64,8 @@ class Game extends React.Component {
 
 
   render() {
-    const history = this.state.history; // entire array of history states
-
-    const current = history[history.length - 1]; // current game state
-
+    const history = this.state.history;
+    const current = history[history.length - 1];
     const winner = calculateWinner(current.squares); // see fxn at bottom
 
     let status; // whose turn it is or who won
@@ -75,7 +75,8 @@ class Game extends React.Component {
       status = `Winner: ${winner}`;
     } else {
       status = `Next player: ${this.state.xIsNext ? 'X' : 'O'}`;
-    }
+    } // what to show
+
 
     return React.createElement("div", {
       className: "game"
