@@ -60,7 +60,7 @@ class Game extends React.Component {
 	// what to do if click a square
 	handleClick(i) {
 		const history = this.state.history.slice(0, this.state.stepNumber + 1); // entire array of history states
-		const current = history[history.length - 1]; // current game state
+		const current = history[this.state.stepNumber]; // current game state
 		const squares = [...current.squares]; // array of length 9
 
 		if (calculateWinner(squares) || squares[i]) {
