@@ -68,6 +68,13 @@ class Game extends React.Component {
     const current = history[history.length - 1];
     const winner = calculateWinner(current.squares); // see fxn at bottom
 
+    const moves = history.map((step, move) => {
+      const desc = move ? `Go to move #${move}` : 'Go to game start'; // if move true, go to move, else go to start
+
+      return React.createElement("li", null, React.createElement("button", {
+        onClick: () => this.jumpTo(move)
+      }, desc));
+    });
     let status; // whose turn it is or who won
     // determine status
 
@@ -87,7 +94,7 @@ class Game extends React.Component {
       onClick: i => this.handleClick(i)
     })), React.createElement("div", {
       className: "game-info"
-    }, React.createElement("div", null, status), React.createElement("ol", null)));
+    }, React.createElement("div", null, status), React.createElement("ol", null, moves)));
   }
 
 } // ========================================
