@@ -42,7 +42,7 @@ class Game extends React.Component {
 
 
   handleClick(i) {
-    const history = this.state.history; // entire array of history states
+    const history = this.state.history.slice(0, this.state.stepNumber + 1); // entire array of history states
 
     const current = history[history.length - 1]; // current game state
 
@@ -59,7 +59,16 @@ class Game extends React.Component {
       history: history.concat([{
         squares: squares
       }]),
+      stepNumber: history.length,
       xIsNext: !this.state.xIsNext
+    });
+  } // time travel feature
+
+
+  jumpTo(step) {
+    this.setState({
+      stepNumber: step,
+      xIsNext: step % 2 === 0
     });
   } // render game
 
@@ -68,6 +77,8 @@ class Game extends React.Component {
     const history = this.state.history;
     const current = history[history.length - 1];
     const winner = calculateWinner(current.squares); // see fxn at bottom
+    // creates functional component here basically
+    // entire contents of <ol>, series of components
 
     const moves = history.map((step, move) => {
       const desc = move ? `Go to move #${move}` : 'Go to game start'; // if move true, go to move, else go to start
