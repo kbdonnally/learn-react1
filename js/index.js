@@ -44,7 +44,7 @@ class Game extends React.Component {
   handleClick(i) {
     const history = this.state.history.slice(0, this.state.stepNumber + 1); // entire array of history states
 
-    const current = history[this.state.stepNumber]; // current game state
+    const current = history[history.length - 1]; // current game state
 
     const squares = [...current.squares]; // array of length 9
 
@@ -75,7 +75,7 @@ class Game extends React.Component {
 
   render() {
     const history = this.state.history;
-    const current = history[history.length - 1];
+    const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares); // see fxn at bottom
     // creates functional component here basically
     // entire contents of <ol>, series of components
