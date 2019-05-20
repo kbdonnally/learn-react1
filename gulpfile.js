@@ -67,3 +67,16 @@ gulp.task('babel', gulp.series('babel:clean', 'babel:compile', 'babel:watch'));
 
 // gulp
 gulp.task('default', gulp.parallel('css', 'babel'));
+
+// ----------------------------------------------------------
+
+// Special tasks!!!
+
+// concatenate HTML:
+const htmlPartials = (filepath, outname, done) => {
+	gulp.src(['html/partials/head.html', filename, 'html/partials/react-foot.html'])
+		.pipe(concat(outname));
+});
+
+// jk I give up on this for now!!
+// here's a link for more info: https://www.npmjs.com/package/gulp-file-include
