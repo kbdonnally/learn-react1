@@ -1,3 +1,5 @@
+if (document.querySelector('body.tic-tac-toe')) {
+
 // 1. Square on board
 function Square(props) {
 	return (
@@ -158,3 +160,5 @@ function calculateWinner(squares) {
 	}
 	return null; // else
 }
+
+} // end if statement
